@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    image: python:3.8
+    container_name: backend
+    command: python run.py
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+
+  frontend:
+    image: node:14
+    container_name: frontend
+    command: npm start
+    volumes:
+      - ./frontend:/app
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

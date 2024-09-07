@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Search</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">News Search</h1>
+        <div class="form-container">
+            <form method="POST" action="/">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter keyword" name="keyword" required>
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+
+        {% if all_articles %}
+            <h2 class="mt-4">Search Results for "{{ keyword }}"</h2>
+            <div class="row">
+                {% for article in all_articles %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="{{ article['urlToImage'] }}" class="card-img-top" alt="Image" onerror="this.src='https://via.placeholder.com/150'">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ article['title'] }}</h5>
+                                <p class="card-text">{{ article['description'] }}</p>
+                                <a href="{{ article['url'] }}" class="btn btn-primary" target="_blank">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% elif all_headlines %}
+            <h2 class="mt-4">Top Headlines</h2>
+            <div class="row">
+                {% for headline in all_headlines %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="{{ headline['urlToImage'] }}" class="card-img-top" alt="Image" onerror="this.src='https://via.placeholder.com/150'">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ headline['title'] }}</h5>
+                                <p class="card-text">{{ headline['description'] }}</p>
+                                <a href="{{ headline['url'] }}" class="btn btn-primary" target="_blank">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

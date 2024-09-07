@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .container {
+        max-width: 600px;
+        margin-top: 50px;
+      }
+      .form-check-label {
+        margin-left: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center mb-4">Password Generator</h1>
+
+      <!-- Display Today's Date -->
+      <p class="text-center text-muted">Today's Date: {{ datetoday2 }}</p>
+
+      <!-- Alert for any message -->
+      {% if mess %}
+      <div class="alert alert-warning" role="alert">{{ mess }}</div>
+      {% endif %}
+
+      <!-- Form for Password Generation -->
+      <form method="POST" action="/genpassword">
+        <div class="mb-3">
+          <label for="pass_len" class="form-label">Password Length</label>
+          <input
+            type="number"
+            class="form-control"
+            id="pass_len"
+            name="pass_len"
+            placeholder="Enter password length"
+            required
+          />
+        </div>
+
+        <!-- Options for Password Customization -->
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="uppchars"
+            name="uppchars"
+          />
+          <label class="form-check-label" for="uppchars">
+            Include Uppercase Letters
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="digits"
+            name="digits"
+          />
+          <label class="form-check-label" for="digits"> Include Digits </label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="specialchars"
+            name="specialchars"
+          />
+          <label class="form-check-label" for="specialchars">
+            Include Special Characters
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="spaces"
+            name="spaces"
+          />
+          <label class="form-check-label" for="spaces"> Include Spaces </label>
+        </div>
+
+        <!-- Generate Button -->
+        <div class="d-grid gap-2 mt-4">
+          <button type="submit" class="btn btn-primary">
+            Generate Password
+          </button>
+        </div>
+      </form>
+
+      <!-- Display Generated Password -->
+      {% if generate_password %}
+      <div class="alert alert-success mt-4 text-center" role="alert">
+        <strong>Generated Password: </strong> {{ generate_password }}
+      </div>
+      {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
